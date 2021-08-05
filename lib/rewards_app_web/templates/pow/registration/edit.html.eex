@@ -7,6 +7,10 @@
     </div>
   <% end %>
 
+  <%= label f, :name %>
+  <%= text_input f, :name %>
+  <%= error_tag f, :name %>
+
   <%= label f, :current_password %>
   <%= password_input f, :current_password %>
   <%= error_tag f, :current_password %>
