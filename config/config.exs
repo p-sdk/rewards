@@ -18,6 +18,11 @@ config :rewards_app, RewardsAppWeb.Endpoint,
   pubsub_server: RewardsApp.PubSub,
   live_view: [signing_salt: "oreIJ650"]
 
+config :rewards_app, :pow,
+  user: RewardsApp.Users.User,
+  repo: RewardsApp.Repo,
+  web_module: RewardsAppWeb
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
