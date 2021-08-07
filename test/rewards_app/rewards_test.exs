@@ -112,18 +112,32 @@ defmodule RewardsApp.RewardsTest do
     end
 
     test "create_reward/1 with valid data creates a reward" do
-      pool = pool_fixture()
+      points = 12
+      pool = pool_fixture(remaining_points: 13)
       receiver = user_fixture()
-      attrs = Map.merge(@valid_attrs, %{pool_id: pool.id, receiver_id: receiver.id})
+
+      attrs = %{points: points, pool_id: pool.id, receiver_id: receiver.id}
 
       assert {:ok, %Reward{} = reward} = Rewards.create_reward(attrs)
       assert reward.points == 12
       assert reward.pool_id == pool.id
       assert reward.receiver_id == receiver.id
+      assert Rewards.get_pool!(pool.id).remaining_points == 1
     end
 
     test "create_reward/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Rewards.create_reward(@invalid_attrs)
+    end
+
+    test "create_reward/1 with points higher than remaining points in the pool returns error" do
+      points = 12
+      pool = pool_fixture(remaining_points: 11)
+      receiver = user_fixture()
+
+      attrs = %{points: points, pool_id: pool.id, receiver_id: receiver.id}
+
+      assert {:error, :points_too_high} = Rewards.create_reward(attrs)
+      assert Rewards.get_pool!(pool.id).remaining_points == 11
     end
 
     test "update_reward/2 with valid data updates the reward" do
