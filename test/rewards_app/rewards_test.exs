@@ -52,6 +52,27 @@ defmodule RewardsApp.RewardsTest do
       assert Rewards.get_pool!(pool.id) == pool
     end
 
+    test "get_or_create_pool_for/3" do
+      owner = user_fixture()
+      owner_id = owner.id
+      month = 5
+      year = 2020
+
+      assert %Pool{
+               owner_id: ^owner_id,
+               month: ^month,
+               year: ^year,
+               id: id
+             } = Rewards.get_or_create_pool_for(owner, month, year)
+
+      assert %Pool{
+               owner_id: ^owner_id,
+               month: ^month,
+               year: ^year,
+               id: ^id
+             } = Rewards.get_or_create_pool_for(owner, month, year)
+    end
+
     test "create_pool/1 with valid data creates a pool" do
       owner = user_fixture()
       attrs = Map.merge(@valid_attrs, %{owner_id: owner.id})
