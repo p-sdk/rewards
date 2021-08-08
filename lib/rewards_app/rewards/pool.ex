@@ -2,8 +2,10 @@ defmodule RewardsApp.Rewards.Pool do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @default_pool_size 50
+
   schema "pools" do
-    field :remaining_points, :integer
+    field :remaining_points, :integer, default: @default_pool_size
     field :month, :integer
     field :year, :integer
     belongs_to :owner, RewardsApp.Users.User
