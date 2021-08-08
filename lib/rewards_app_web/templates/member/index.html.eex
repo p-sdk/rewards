@@ -1,0 +1,8 @@
+<h1>Members</h1>
+
+<ul>
+  <%= for member <- @members do %>
+    <li><%= link member.name, to: Routes.member_path(@conn, :show, member) %></li>
+  <% end %>
+</ul>
+

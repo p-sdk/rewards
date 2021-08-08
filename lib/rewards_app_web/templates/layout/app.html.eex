@@ -15,6 +15,7 @@
           <ul>
             <%= if @current_user do %>
               <li><%= @current_user.name %></li>
+              <li><%= link "Members", to: Routes.member_path(@conn, :index) %></li>
               <li><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></li>
             <% else %>
               <li><%= link "Register", to: Routes.pow_registration_path(@conn, :new) %></li>

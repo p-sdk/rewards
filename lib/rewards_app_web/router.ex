@@ -30,7 +30,7 @@ defmodule RewardsAppWeb.Router do
 
     get "/", PageController, :index
 
-    resources "/members", MemberController, only: [:show] do
+    resources "/members", MemberController, only: [:index, :show] do
       resources "/rewards", RewardController, only: [:create]
     end
   end
