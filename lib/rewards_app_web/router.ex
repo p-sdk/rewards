@@ -29,6 +29,10 @@ defmodule RewardsAppWeb.Router do
     pipe_through [:browser, :protected]
 
     get "/", PageController, :index
+
+    resources "/members", MemberController, only: [:show] do
+      resources "/rewards", RewardController, only: [:create]
+    end
   end
 
   # Other scopes may use custom stacks.
