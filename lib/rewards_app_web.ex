@@ -23,6 +23,7 @@ defmodule RewardsAppWeb do
 
       import Plug.Conn
       import RewardsAppWeb.Gettext
+      import RewardsAppWeb.Plugs
       alias RewardsAppWeb.Router.Helpers, as: Routes
     end
   end

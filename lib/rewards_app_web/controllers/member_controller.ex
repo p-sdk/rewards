@@ -4,6 +4,8 @@ defmodule RewardsAppWeb.MemberController do
   alias RewardsApp.Rewards
   alias RewardsApp.Rewards.Reward
 
+  plug :assign_current_pool_remaining_points when action in [:show]
+
   def show(conn, %{"id" => id}) do
     member = Rewards.get_member!(id)
     changeset = Rewards.change_reward(%Reward{})

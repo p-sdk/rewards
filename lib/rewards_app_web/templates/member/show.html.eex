@@ -18,4 +18,6 @@
       <%= submit "Send" %>
     </div>
   <% end %>
+
+  <p>Remaining points in this month: <%= @remaining_points %></p>
 <% end %>

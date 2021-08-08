@@ -45,7 +45,7 @@ defmodule RewardsApp.Rewards do
   """
   def get_pool!(id), do: Repo.get!(Pool, id)
 
-  defp get_or_create_current_pool_for(member) do
+  def get_or_create_current_pool_for(member) do
     %{month: month, year: year} = DateTime.utc_now()
     get_or_create_pool_for(member, month, year)
   end
