@@ -3,20 +3,32 @@ defmodule RewardsApp.RewardsTest do
 
   alias RewardsApp.Rewards
 
+  describe "members" do
+    def user_fixture() do
+      %RewardsApp.Users.User{
+        name: "Member #{System.unique_integer()}",
+        email: "member#{System.unique_integer()}@example.com"
+      }
+      |> Repo.insert!()
+    end
+
+    test "list_members/0 returns all members" do
+      member = user_fixture()
+      assert Rewards.list_members() == [member]
+    end
+
+    test "get_member!/1 returns the member with given id" do
+      member = user_fixture()
+      assert Rewards.get_member!(member.id) == member
+    end
+  end
+
   describe "pools" do
     alias RewardsApp.Rewards.Pool
 
     @valid_attrs %{remaining_points: 30, month: 2, year: 2021}
     @update_attrs %{remaining_points: 50}
     @invalid_attrs %{month: nil, remaining_points: nil, year: nil}
-
-    def user_fixture() do
-      %RewardsApp.Users.User{
-        name: "User #{System.unique_integer()}",
-        email: "user#{System.unique_integer()}@example.com"
-      }
-      |> Repo.insert!()
-    end
 
     def pool_fixture(attrs \\ %{}) do
       user = user_fixture()

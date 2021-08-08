@@ -6,6 +6,14 @@ defmodule RewardsApp.Rewards do
   import Ecto.Query, warn: false
   alias RewardsApp.Repo
 
+  alias RewardsApp.Users.User
+
+  def list_members do
+    Repo.all(User)
+  end
+
+  def get_member!(id), do: Repo.get!(User, id)
+
   alias RewardsApp.Rewards.Pool
 
   @doc """
