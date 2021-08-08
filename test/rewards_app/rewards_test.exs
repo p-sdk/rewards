@@ -140,6 +140,20 @@ defmodule RewardsApp.RewardsTest do
       assert Rewards.get_pool!(pool.id).remaining_points == 11
     end
 
+    test "create_reward/3 associates new reward with the sender's pool for current month" do
+      sender = user_fixture()
+      receiver = user_fixture()
+      points = 12
+      now = DateTime.utc_now()
+      _pool = pool_fixture(remaining_points: 20, owner_id: sender.id, month: now.month, year: now.year)
+
+      assert {:ok, %Reward{} = reward} = Rewards.create_reward(sender, receiver, points)
+      %{pool: updated_pool} = Repo.preload(reward, :pool)
+      assert updated_pool.month == now.month
+      assert updated_pool.year == now.year
+      assert updated_pool.remaining_points == 8
+    end
+
     test "update_reward/2 with valid data updates the reward" do
       reward = reward_fixture()
       assert {:ok, %Reward{} = reward} = Rewards.update_reward(reward, @update_attrs)

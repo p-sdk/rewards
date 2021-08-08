@@ -37,6 +37,11 @@ defmodule RewardsApp.Rewards do
   """
   def get_pool!(id), do: Repo.get!(Pool, id)
 
+  defp get_current_pool_for!(member) do
+    %{month: month, year: year} = DateTime.utc_now()
+    Repo.get_by!(Pool, owner_id: member.id, month: month, year: year)
+  end
+
   @doc """
   Creates a pool.
 
@@ -161,6 +166,12 @@ defmodule RewardsApp.Rewards do
       {:error, :reward, changeset, _} -> {:error, changeset}
       {:error, :pool, _, _} -> {:error, :points_too_high}
     end
+  end
+
+  def create_reward(sender, receiver, points) do
+    pool = get_current_pool_for!(sender)
+    attrs = %{points: points, pool_id: pool.id, receiver_id: receiver.id}
+    create_reward(attrs)
   end
 
   @doc """
