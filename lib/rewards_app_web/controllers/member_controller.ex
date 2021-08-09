@@ -13,7 +13,15 @@ defmodule RewardsAppWeb.MemberController do
 
   def show(conn, %{"id" => id}) do
     member = Rewards.get_member!(id)
-    changeset = Rewards.change_reward(%Reward{})
-    render(conn, "show.html", member: member, changeset: changeset)
+
+    if conn.assigns.current_user == member do
+      given_rewards = Rewards.list_rewards_given_by(member)
+
+      render(conn, "show.html", member: member, given_rewards: given_rewards)
+    else
+      changeset = Rewards.change_reward(%Reward{})
+
+      render(conn, "show.html", member: member, changeset: changeset)
+    end
   end
 end

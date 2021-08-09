@@ -1,6 +1,14 @@
 <h1><%= @member.name %></h1>
 
-<%= if @current_user != @member do %>
+<%= if @current_user == @member do %>
+  <h2>Given rewards</h2>
+
+  <ul>
+    <%= for reward <- @given_rewards do %>
+      <li><%= reward.receiver.name %>: <%= reward.points %></li>
+    <% end %>
+  </ul>
+<%= else %>
   <h2>Give reward</h2>
 
   <%= form_for @changeset, Routes.member_reward_path(@conn, :create, @member), fn f -> %>
