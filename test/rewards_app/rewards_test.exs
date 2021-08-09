@@ -139,6 +139,21 @@ defmodule RewardsApp.RewardsTest do
       assert Rewards.list_rewards() == [reward]
     end
 
+    test "list_rewards_given_by/1 returns rewards given by the given member" do
+      sender = user_fixture()
+      other_sender = user_fixture()
+      receiver_1 = user_fixture()
+      receiver_2 = user_fixture()
+      {:ok, %{id: reward_1_id}} = Rewards.create_reward(sender, receiver_1, 3)
+      {:ok, %{id: _reward_2_id}} = Rewards.create_reward(other_sender, receiver_1, 4)
+      {:ok, %{id: reward_3_id}} = Rewards.create_reward(sender, receiver_2, 5)
+
+      assert [
+               %{id: ^reward_3_id, receiver: ^receiver_2, points: 5},
+               %{id: ^reward_1_id, receiver: ^receiver_1, points: 3}
+             ] = Rewards.list_rewards_given_by(sender)
+    end
+
     test "get_reward!/1 returns the reward with given id" do
       reward = reward_fixture()
       assert Rewards.get_reward!(reward.id) == reward

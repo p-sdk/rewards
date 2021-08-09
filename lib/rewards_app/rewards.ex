@@ -144,6 +144,17 @@ defmodule RewardsApp.Rewards do
     Repo.all(Reward)
   end
 
+  def list_rewards_given_by(%{id: member_id} = _member) do
+    from(r in Reward,
+      join: p in Pool,
+      on: [id: r.pool_id],
+      where: p.owner_id == ^member_id,
+      order_by: [desc: :id],
+      preload: :receiver
+    )
+    |> Repo.all()
+  end
+
   @doc """
   Gets a single reward.
 
