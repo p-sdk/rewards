@@ -1,13 +1,13 @@
 defmodule RewardsAppWeb.RewardController do
   use RewardsAppWeb, :controller
 
-  alias RewardsApp.Rewards
+  alias RewardsApp.{Rewards, Users}
   alias RewardsApp.Rewards.Reward
 
   plug :assign_current_pool_remaining_points when action in [:create]
 
   def create(conn, %{"member_id" => member_id, "reward" => %{"points" => points}}) do
-    member = Rewards.get_member!(member_id)
+    member = Users.get_member!(member_id)
 
     case Rewards.create_reward(conn.assigns.current_user, member, points) do
       {:ok, _reward} ->

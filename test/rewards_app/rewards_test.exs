@@ -3,18 +3,6 @@ defmodule RewardsApp.RewardsTest do
   import RewardsApp.Fixtures
   alias RewardsApp.Rewards
 
-  describe "members" do
-    test "list_members/0 returns all members" do
-      member = user_fixture()
-      assert Rewards.list_members() == [member]
-    end
-
-    test "get_member!/1 returns the member with given id" do
-      member = user_fixture()
-      assert Rewards.get_member!(member.id) == member
-    end
-  end
-
   describe "pools" do
     alias RewardsApp.Rewards.Pool
 
