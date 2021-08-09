@@ -1,17 +1,9 @@
 defmodule RewardsApp.RewardsTest do
   use RewardsApp.DataCase
-
+  import RewardsApp.Fixtures
   alias RewardsApp.Rewards
 
   describe "members" do
-    def user_fixture() do
-      %RewardsApp.Users.User{
-        name: "Member #{System.unique_integer()}",
-        email: "member#{System.unique_integer()}@example.com"
-      }
-      |> Repo.insert!()
-    end
-
     test "list_members/0 returns all members" do
       member = user_fixture()
       assert Rewards.list_members() == [member]
