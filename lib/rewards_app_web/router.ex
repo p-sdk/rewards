@@ -19,6 +19,10 @@ defmodule RewardsAppWeb.Router do
       error_handler: Pow.Phoenix.PlugErrorHandler
   end
 
+  pipeline :admin do
+    plug RewardsAppWeb.EnsureRolePlug, :admin
+  end
+
   scope "/" do
     pipe_through :browser
 
