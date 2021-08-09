@@ -5,6 +5,7 @@ defmodule RewardsApp.Users.User do
 
   schema "users" do
     field :name, :string
+    field :role, :string, null: false, default: "member"
 
     pow_user_fields()
 
@@ -17,5 +18,12 @@ defmodule RewardsApp.Users.User do
     |> cast(attrs, [:name])
     |> validate_required([:name])
     |> unique_constraint(:name)
+  end
+
+  @spec changeset_role(Ecto.Schema.t() | Ecto.Changeset.t(), map()) :: Ecto.Changeset.t()
+  def changeset_role(user_or_changeset, attrs) do
+    user_or_changeset
+    |> cast(attrs, [:role])
+    |> validate_inclusion(:role, ~w(member admin))
   end
 end
