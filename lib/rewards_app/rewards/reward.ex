@@ -15,7 +15,7 @@ defmodule RewardsApp.Rewards.Reward do
     reward
     |> cast(attrs, [:points, :pool_id, :receiver_id])
     |> validate_required([:points, :pool_id, :receiver_id])
-    |> validate_number(:points, greater_than_or_equal_to: 0)
+    |> validate_number(:points, greater_than: 0)
     |> assoc_constraint(:pool)
     |> assoc_constraint(:receiver)
   end
