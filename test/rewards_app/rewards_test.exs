@@ -27,6 +27,16 @@ defmodule RewardsApp.RewardsTest do
       assert Rewards.list_pools() == [pool]
     end
 
+    test "list_pools_for/1 returns pools owned by the given member" do
+      member = user_fixture()
+      other_member = user_fixture()
+      pool_1 = pool_fixture(owner_id: member.id, month: 1)
+      _pool_2 = pool_fixture(owner_id: other_member.id, month: 2)
+      pool_3 = pool_fixture(owner_id: member.id, month: 3)
+
+      assert Rewards.list_pools_for(member) == [pool_3, pool_1]
+    end
+
     test "get_pool!/1 returns the pool with given id" do
       pool = pool_fixture()
       assert Rewards.get_pool!(pool.id) == pool

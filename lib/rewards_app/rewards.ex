@@ -21,6 +21,14 @@ defmodule RewardsApp.Rewards do
     Repo.all(Pool)
   end
 
+  def list_pools_for(member) do
+    from(Pool,
+      where: [owner_id: ^member.id],
+      order_by: [desc: :year, desc: :month]
+    )
+    |> Repo.all()
+  end
+
   @doc """
   Gets a single pool.
 
