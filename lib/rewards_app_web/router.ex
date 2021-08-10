@@ -32,9 +32,9 @@ defmodule RewardsAppWeb.Router do
   scope "/", RewardsAppWeb do
     pipe_through [:browser, :protected]
 
-    get "/", PageController, :index
+    get "/", MemberController, :index
 
-    resources "/members", MemberController, only: [:index, :show] do
+    resources "/members", MemberController, only: [:show] do
       resources "/rewards", RewardController, only: [:create]
     end
   end
