@@ -1,0 +1,29 @@
+<h1><%= @member.name %></h1>
+
+<h2>Pools</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Month</th>
+      <th>Remaining points</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for pool <- @pools do %>
+    <tr>
+      <td><%= pool.year %></td>
+      <td><%= pool.month %></td>
+      <td><%= pool.remaining_points %></td>
+
+      <td>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "Back", to: Routes.member_path(@conn, :index) %></span>
