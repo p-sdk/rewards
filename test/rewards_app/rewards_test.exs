@@ -63,6 +63,19 @@ defmodule RewardsApp.RewardsTest do
              } = Rewards.get_or_create_pool_for(owner, month, year)
     end
 
+    test "get_pool_with_rewards_and_receivers/1 returns the pool with preloaded rewards and receivers" do
+      pool = pool_fixture()
+      %{id: reward_1_id, receiver_id: reward_1_receiver_id} = reward_fixture(%{pool_id: pool.id})
+      %{id: reward_2_id} = reward_fixture(%{pool_id: pool.id})
+
+      assert %Pool{rewards: [reward_2, reward_1]} =
+               Rewards.get_pool_with_rewards_and_receivers(pool.id)
+
+      assert reward_1.id == reward_1_id
+      assert reward_2.id == reward_2_id
+      assert reward_1.receiver.id == reward_1_receiver_id
+    end
+
     test "create_pool/1 with valid data creates a pool" do
       owner = user_fixture()
       attrs = Map.merge(@valid_attrs, %{owner_id: owner.id})

@@ -6,7 +6,7 @@ defmodule RewardsApp.Rewards do
   import Ecto.Query, warn: false
   alias RewardsApp.Repo
 
-  alias RewardsApp.Rewards.Pool
+  alias RewardsApp.Rewards.{Pool, Reward}
 
   @doc """
   Returns the list of pools.
@@ -62,6 +62,14 @@ defmodule RewardsApp.Rewards do
         %{owner_id: owner_id, month: month, year: year} = changeset.data
         Repo.get_by!(Pool, owner_id: owner_id, month: month, year: year)
     end
+  end
+
+  def get_pool_with_rewards_and_receivers(id) do
+    from(Pool,
+      where: [id: ^id],
+      preload: [rewards: ^{from(Reward, order_by: [desc: :id]), [:receiver]}]
+    )
+    |> Repo.one()
   end
 
   @doc """
@@ -128,8 +136,6 @@ defmodule RewardsApp.Rewards do
   def change_pool(%Pool{} = pool, attrs \\ %{}) do
     Pool.changeset(pool, attrs)
   end
-
-  alias RewardsApp.Rewards.Reward
 
   @doc """
   Returns the list of rewards.

@@ -9,6 +9,7 @@ defmodule RewardsApp.Rewards.Pool do
     field :month, :integer
     field :year, :integer
     belongs_to :owner, RewardsApp.Users.User
+    has_many :rewards, RewardsApp.Rewards.Reward
 
     timestamps()
   end
