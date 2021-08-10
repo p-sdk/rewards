@@ -9,4 +9,13 @@ defmodule RewardsAppWeb.Admin.RewardController do
 
     render(conn, "index.html", member: member, pool: pool, rewards: pool.rewards)
   end
+
+  def delete(conn, %{"member_id" => member_id, "pool_id" => pool_id, "id" => id}) do
+    reward = Rewards.get_reward!(id)
+    {:ok, _reward} = Rewards.delete_reward(reward)
+
+    conn
+    |> put_flash(:info, "Reward deleted successfully.")
+    |> redirect(to: Routes.admin_member_pool_reward_path(conn, :index, member_id, pool_id))
+  end
 end
