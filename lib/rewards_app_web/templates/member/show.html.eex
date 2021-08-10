@@ -29,3 +29,5 @@
 
   <p>Remaining points in this month: <%= @remaining_points %></p>
 <% end %>
+
+<span><%= link "Back", to: Routes.member_path(@conn, :index) %></span>
