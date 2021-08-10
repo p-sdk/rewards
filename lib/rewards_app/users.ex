@@ -11,7 +11,8 @@ defmodule RewardsApp.Users do
   @type t :: %User{}
 
   def list_members do
-    Repo.all(User)
+    from(User, where: [role: "member"])
+    |> Repo.all()
   end
 
   def get_member!(id), do: Repo.get!(User, id)

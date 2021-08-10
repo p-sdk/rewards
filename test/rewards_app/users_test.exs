@@ -3,9 +3,20 @@ defmodule RewardsApp.UsersTest do
   import RewardsApp.Fixtures
   alias RewardsApp.{Repo, Users, Users.User}
 
+  @valid_params %{
+    name: "User",
+    email: "test@example.com",
+    password: "secret1234",
+    password_confirmation: "secret1234"
+  }
+
   describe "members" do
     test "list_members/0 returns all members" do
       member = user_fixture()
+
+      assert {:ok, _admin} =
+               Users.create_admin(%{@valid_params | name: "Admin", email: "admin@example.com"})
+
       assert Users.list_members() == [member]
     end
 
@@ -16,13 +27,6 @@ defmodule RewardsApp.UsersTest do
   end
 
   describe "admins" do
-    @valid_params %{
-      name: "User",
-      email: "test@example.com",
-      password: "secret1234",
-      password_confirmation: "secret1234"
-    }
-
     test "create_admin/1" do
       assert {:ok, user} = Users.create_admin(@valid_params)
       assert user.role == "admin"
