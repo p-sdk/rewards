@@ -20,6 +20,7 @@
       <td><%= pool.remaining_points %></td>
 
       <td>
+        <span><%= link "Edit", to: Routes.admin_member_pool_path(@conn, :edit, @member, pool) %></span>
       </td>
     </tr>
 <% end %>

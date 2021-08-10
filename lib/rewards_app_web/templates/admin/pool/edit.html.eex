@@ -1,0 +1,5 @@
+<h2>Edit <%= @member.name %>'s <%= @pool.year %> - <%= @pool.month %> Pool</h2>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.admin_member_pool_path(@conn, :update, @member, @pool)) %>
+
+<span><%= link "Back", to: Routes.admin_member_path(@conn, :show, @member) %></span>

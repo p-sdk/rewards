@@ -42,7 +42,9 @@ defmodule RewardsAppWeb.Router do
   scope "/admin", RewardsAppWeb.Admin, as: :admin do
     pipe_through [:browser, :admin]
 
-    resources "/members", MemberController, only: [:show]
+    resources "/members", MemberController, only: [:show] do
+      resources "/pools", PoolController, only: [:edit, :update]
+    end
   end
 
   # Other scopes may use custom stacks.
