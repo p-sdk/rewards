@@ -1,0 +1,24 @@
+<h2>Rewards given by <%= @member.name %> in <%= @pool.year %> - <%= @pool.month %></h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Receiver</th>
+      <th>Points</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for reward <- @rewards do %>
+    <tr>
+      <td><%= reward.receiver.name %></td>
+      <td><%= reward.points %></td>
+
+      <td>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+<span><%= link "Back", to: Routes.admin_member_path(@conn, :show, @member) %></span>

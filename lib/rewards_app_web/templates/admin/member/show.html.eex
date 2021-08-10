@@ -20,6 +20,8 @@
       <td><%= pool.remaining_points %></td>
 
       <td>
+        <span><%= link "Rewards", to: Routes.admin_member_pool_reward_path(@conn, :index, @member, pool) %></span>
+        |
         <span><%= link "Edit", to: Routes.admin_member_pool_path(@conn, :edit, @member, pool) %></span>
       </td>
     </tr>

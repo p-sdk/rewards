@@ -43,7 +43,9 @@ defmodule RewardsAppWeb.Router do
     pipe_through [:browser, :admin]
 
     resources "/members", MemberController, only: [:show] do
-      resources "/pools", PoolController, only: [:edit, :update]
+      resources "/pools", PoolController, only: [:edit, :update] do
+        resources "/rewards", RewardController, only: [:index]
+      end
     end
   end
 
