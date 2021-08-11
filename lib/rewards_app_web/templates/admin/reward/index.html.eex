@@ -22,4 +22,7 @@
 <% end %>
   </tbody>
 </table>
+
 <span><%= link "Back", to: Routes.admin_member_path(@conn, :show, @member) %></span>
+|
+<span><%= link "New Reward", to: Routes.admin_member_pool_reward_path(@conn, :new, @member, @pool) %></span>

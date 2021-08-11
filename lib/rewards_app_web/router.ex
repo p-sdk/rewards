@@ -44,7 +44,7 @@ defmodule RewardsAppWeb.Router do
 
     resources "/members", MemberController, only: [:show] do
       resources "/pools", PoolController, only: [:edit, :update] do
-        resources "/rewards", RewardController, only: [:index, :delete]
+        resources "/rewards", RewardController, only: [:index, :new, :create, :delete]
       end
     end
   end
