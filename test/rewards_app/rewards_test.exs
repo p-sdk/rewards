@@ -218,8 +218,13 @@ defmodule RewardsApp.RewardsTest do
     end
 
     test "delete_reward/1 deletes the reward" do
-      reward = reward_fixture()
+      pool = pool_fixture(remaining_points: 18)
+      reward = reward_fixture(points: 3, pool_id: pool.id)
+      15 = Rewards.get_pool!(pool.id).remaining_points
+
       assert {:ok, %Reward{}} = Rewards.delete_reward(reward)
+      assert Rewards.get_pool!(pool.id).remaining_points == 18
+
       assert_raise Ecto.NoResultsError, fn -> Rewards.get_reward!(reward.id) end
     end
 

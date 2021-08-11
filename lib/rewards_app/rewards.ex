@@ -244,7 +244,18 @@ defmodule RewardsApp.Rewards do
 
   """
   def delete_reward(%Reward{} = reward) do
-    Repo.delete(reward)
+    Ecto.Multi.new()
+    |> Ecto.Multi.delete(:reward, reward)
+    |> Ecto.Multi.update(:pool, fn %{reward: reward} ->
+      pool = get_pool!(reward.pool_id)
+      remaining_points = pool.remaining_points + reward.points
+      Pool.changeset(pool, %{remaining_points: remaining_points})
+    end)
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{reward: reward}} -> {:ok, reward}
+      {:error, _, _, _} -> :error
+    end
   end
 
   @doc """
