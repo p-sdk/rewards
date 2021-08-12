@@ -157,6 +157,25 @@ defmodule RewardsApp.RewardsTest do
              ] = Rewards.list_rewards_given_by(sender)
     end
 
+    test "get_rewards_summary/2" do
+      sender = user_fixture()
+      other_sender = user_fixture()
+      receiver_1 = user_fixture()
+      receiver_2 = user_fixture()
+      {:ok, _} = Rewards.create_reward(sender, receiver_1, 3)
+      {:ok, _} = Rewards.create_reward(other_sender, receiver_1, 4)
+      {:ok, _} = Rewards.create_reward(sender, receiver_2, 5)
+      {:ok, _} = Rewards.create_reward(sender, receiver_2, 6)
+      {:ok, _} = Rewards.create_reward(other_sender, receiver_1, 7)
+
+      now = DateTime.utc_now()
+
+      assert Rewards.get_rewards_summary(now.month, now.year) == [
+               %{name: receiver_1.name, points: 14},
+               %{name: receiver_2.name, points: 11}
+             ]
+    end
+
     test "get_reward!/1 returns the reward with given id" do
       reward = reward_fixture()
       assert Rewards.get_reward!(reward.id) == reward

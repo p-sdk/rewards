@@ -161,6 +161,18 @@ defmodule RewardsApp.Rewards do
     |> Repo.all()
   end
 
+  def get_rewards_summary(month, year) do
+    from(r in Reward,
+      join: p in assoc(r, :pool),
+      join: u in assoc(r, :receiver),
+      where: p.month == ^month and p.year == ^year,
+      group_by: u.id,
+      select: %{name: u.name, points: sum(r.points)},
+      order_by: [desc: sum(r.points)]
+    )
+    |> Repo.all()
+  end
+
   @doc """
   Gets a single reward.
 
