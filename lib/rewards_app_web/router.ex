@@ -47,6 +47,9 @@ defmodule RewardsAppWeb.Router do
         resources "/rewards", RewardController, only: [:index, :new, :create, :delete]
       end
     end
+
+    get "/reports", ReportController, :index
+    get "/reports/:year/:month", ReportController, :show
   end
 
   # Other scopes may use custom stacks.

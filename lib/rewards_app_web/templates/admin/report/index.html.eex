@@ -1,0 +1,9 @@
+<h2>Reports</h2>
+
+<ul>
+<%= for period <- @periods do %>
+  <li>
+    <span><%= link format_period(period), to: Routes.admin_report_path(@conn, :show, period.year, period.month) %></span>
+  </li>
+<% end %>
+</ul>

@@ -1,0 +1,20 @@
+<h1><%= format_period(%{month: @month, year: @year}) %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Member</th>
+      <th>Received points</th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for receiver <- @receivers do %>
+    <tr>
+      <td><%= receiver.name %></td>
+      <td><%= receiver.points %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "Back", to: Routes.admin_report_path(@conn, :index) %></span>
