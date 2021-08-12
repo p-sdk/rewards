@@ -7,7 +7,7 @@
   </li>
   <li>
     <strong>Pool:</strong>
-    <%= @pool.year %> - <%= @pool.month %>
+    <%= pool_period(@pool) %>
     (<%= @pool.remaining_points %> remaining points)
   </li>
 </ul>

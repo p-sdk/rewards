@@ -1,4 +1,4 @@
-<h2>Edit <%= @member.name %>'s <%= @pool.year %> - <%= @pool.month %> Pool</h2>
+<h2>Edit <%= @member.name %>'s <%= pool_period(@pool) %> Pool</h2>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.admin_member_pool_path(@conn, :update, @member, @pool)) %>
 
