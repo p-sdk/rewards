@@ -5,6 +5,16 @@
     </div>
   <% end %>
 
+  <%= unless @changeset.data.id do %>
+    <%= label f, :month %>
+    <%= number_input f, :month %>
+    <%= error_tag f, :month %>
+
+    <%= label f, :year %>
+    <%= number_input f, :year %>
+    <%= error_tag f, :year %>
+  <% end %>
+
   <%= label f, :remaining_points %>
   <%= number_input f, :remaining_points %>
   <%= error_tag f, :remaining_points %>

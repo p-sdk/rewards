@@ -1,7 +1,31 @@
 defmodule RewardsAppWeb.Admin.PoolController do
   use RewardsAppWeb, :controller
 
-  alias RewardsApp.{Rewards, Users}
+  alias RewardsApp.{Rewards.Pool, Rewards, Users}
+
+  def new(conn, %{"member_id" => member_id}) do
+    member = Users.get_member!(member_id)
+    changeset = Rewards.change_pool(%Pool{})
+    render(conn, "new.html", member: member, changeset: changeset)
+  end
+
+  def create(conn, %{"member_id" => member_id, "pool" => pool_params}) do
+    member = Users.get_member!(member_id)
+    pool_params = Map.put(pool_params, "owner_id", member_id)
+
+    case Rewards.create_pool(pool_params) do
+      {:ok, _pool} ->
+        conn
+        |> put_flash(:info, "Pool created successfully.")
+        |> redirect(to: Routes.admin_member_path(conn, :show, member))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "new.html", member: member, changeset: changeset)
+    end
+
+    changeset = Rewards.change_pool(%Pool{})
+    render(conn, "new.html", member: member, changeset: changeset)
+  end
 
   def edit(conn, %{"member_id" => member_id, "id" => id}) do
     member = Users.get_member!(member_id)

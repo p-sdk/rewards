@@ -30,3 +30,5 @@
 </table>
 
 <span><%= link "Back", to: Routes.member_path(@conn, :index) %></span>
+|
+<span><%= link "New Pool", to: Routes.admin_member_pool_path(@conn, :new, @member) %></span>

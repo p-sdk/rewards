@@ -1,0 +1,5 @@
+<h2>New <%= @member.name %>'s Pool</h2>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.admin_member_pool_path(@conn, :create, @member)) %>
+
+<span><%= link "Back", to: Routes.admin_member_path(@conn, :show, @member) %></span>
