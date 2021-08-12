@@ -22,6 +22,16 @@ defmodule RewardsApp.RewardsTest do
       pool
     end
 
+    test "list_periods/0" do
+      member = user_fixture()
+      other_member = user_fixture()
+      %Pool{} = pool_fixture(owner_id: member.id, month: 1, year: 2004)
+      %Pool{} = pool_fixture(owner_id: other_member.id, month: 1, year: 2004)
+      %Pool{} = pool_fixture(owner_id: member.id, month: 2, year: 2004)
+
+      assert [%{month: 2, year: 2004}, %{month: 1, year: 2004}] = Rewards.list_periods()
+    end
+
     test "list_pools/0 returns all pools" do
       pool = pool_fixture()
       assert Rewards.list_pools() == [pool]

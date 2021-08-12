@@ -8,6 +8,15 @@ defmodule RewardsApp.Rewards do
 
   alias RewardsApp.Rewards.{Pool, Reward}
 
+  def list_periods() do
+    from(p in Pool,
+      distinct: [desc: :year, desc: :month],
+      order_by: [desc: :year, desc: :month],
+      select: %{month: p.month, year: p.year}
+    )
+    |> Repo.all()
+  end
+
   @doc """
   Returns the list of pools.
 
