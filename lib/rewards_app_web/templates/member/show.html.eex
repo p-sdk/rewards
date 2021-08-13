@@ -1,33 +1,11 @@
 <h1><%= @member.name %></h1>
 
-<%= if @current_user == @member do %>
-  <h2>Given rewards</h2>
+<h2>Given rewards</h2>
 
-  <ul>
-    <%= for reward <- @given_rewards do %>
-      <li><%= reward.receiver.name %>: <%= reward.points %></li>
-    <% end %>
-  </ul>
-<%= else %>
-  <h2>Give reward</h2>
-
-  <%= form_for @changeset, Routes.member_reward_path(@conn, :create, @member), fn f -> %>
-    <%= if @changeset.action do %>
-      <div class="alert alert-danger">
-        <p>Oops, something went wrong! Please check the errors below.</p>
-      </div>
-    <% end %>
-
-    <%= label f, :points %>
-    <%= number_input f, :points %>
-    <%= error_tag f, :points %>
-
-    <div>
-      <%= submit "Send" %>
-    </div>
+<ul>
+  <%= for reward <- @given_rewards do %>
+    <li><%= reward.receiver.name %>: <%= reward.points %></li>
   <% end %>
-
-  <p>Remaining points in this month: <%= @remaining_points %></p>
-<% end %>
+</ul>
 
 <span><%= link "Back", to: Routes.member_path(@conn, :index) %></span>

@@ -20,7 +20,7 @@
           <% @current_user == member -> %>
             <span><%= link "List given rewards", to: Routes.member_path(@conn, :show, member) %></span>
           <% true -> %>
-            <span><%= link "Give a reward", to: Routes.member_path(@conn, :show, member) %></span>
+            <span><%= link "Give a reward", to: Routes.member_reward_path(@conn, :new, member) %></span>
         <% end %>
       </td>
     </tr>

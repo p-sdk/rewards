@@ -4,7 +4,14 @@ defmodule RewardsAppWeb.RewardController do
   alias RewardsApp.{Rewards, Users}
   alias RewardsApp.Rewards.Reward
 
-  plug :assign_current_pool_remaining_points when action in [:create]
+  plug :assign_current_pool_remaining_points when action in [:new, :create]
+
+  def new(conn, %{"member_id" => id}) do
+    member = Users.get_member!(id)
+    changeset = Rewards.change_reward(%Reward{})
+
+    render(conn, "new.html", member: member, changeset: changeset)
+  end
 
   def create(conn, %{"member_id" => member_id, "reward" => %{"points" => points}}) do
     member = Users.get_member!(member_id)
@@ -17,16 +24,14 @@ defmodule RewardsAppWeb.RewardController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
-        |> put_view(RewardsAppWeb.MemberView)
-        |> render("show.html", member: member, changeset: changeset)
+        |> render("new.html", member: member, changeset: changeset)
 
       {:error, :points_too_high} ->
         changeset = Rewards.change_reward(%Reward{})
 
         conn
         |> put_flash(:error, "The requested amount of points to reward is too high.")
-        |> put_view(RewardsAppWeb.MemberView)
-        |> render("show.html", member: member, changeset: changeset)
+        |> render("new.html", member: member, changeset: changeset)
     end
   end
 end
