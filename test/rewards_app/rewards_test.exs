@@ -204,7 +204,7 @@ defmodule RewardsApp.RewardsTest do
 
       attrs = %{points: points, pool_id: pool.id, receiver_id: receiver.id}
 
-      assert {:error, :points_too_high} = Rewards.create_reward(attrs)
+      assert {:error, %Ecto.Changeset{}} = Rewards.create_reward(attrs)
       assert Rewards.get_pool!(pool.id).remaining_points == 11
     end
 
