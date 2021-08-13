@@ -18,5 +18,20 @@ defmodule RewardsApp.Rewards.Reward do
     |> validate_number(:points, greater_than: 0)
     |> assoc_constraint(:pool)
     |> assoc_constraint(:receiver)
+    |> validate_receiver_is_not_sender()
+  end
+
+  defp validate_receiver_is_not_sender(changeset) do
+    receiver_id = get_field(changeset, :receiver_id)
+    pool_id = get_field(changeset, :pool_id)
+
+    with {:is_valid, true} <- {:is_valid, changeset.valid?},
+         %Pool{owner_id: sender_id} <- Repo.get(Pool, pool_id),
+         true <- receiver_id != sender_id do
+      changeset
+    else
+      {:is_valid, false} -> changeset
+      _ -> add_error(changeset, :receiver_id, "can't be the same as sender")
+    end
   end
 end
