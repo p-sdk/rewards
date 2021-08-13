@@ -159,11 +159,13 @@ defmodule RewardsApp.Rewards do
     Repo.all(Reward)
   end
 
-  def list_rewards_given_by(%{id: member_id} = _member) do
+  def list_rewards_recently_given_by(%{id: member_id} = _member) do
+    %{month: month, year: year} = Date.utc_today()
+
     from(r in Reward,
-      join: p in Pool,
-      on: [id: r.pool_id],
+      join: p in assoc(r, :pool),
       where: p.owner_id == ^member_id,
+      where: p.month == ^month and p.year == ^year,
       order_by: [desc: :id],
       preload: :receiver
     )

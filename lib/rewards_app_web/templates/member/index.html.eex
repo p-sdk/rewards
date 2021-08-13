@@ -18,7 +18,7 @@
           <% RewardsApp.Users.is_admin?(@current_user) -> %>
             <span><%= link "Manage", to: Routes.admin_member_pool_path(@conn, :index, member) %></span>
           <% @current_user == member -> %>
-            <span><%= link "List given rewards", to: Routes.member_path(@conn, :show, member) %></span>
+            <span><%= link "List recently given rewards", to: Routes.member_path(@conn, :show, member) %></span>
           <% true -> %>
             <span><%= link "Give a reward", to: Routes.member_reward_path(@conn, :new, member) %></span>
         <% end %>

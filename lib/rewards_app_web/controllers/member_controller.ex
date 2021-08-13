@@ -10,7 +10,7 @@ defmodule RewardsAppWeb.MemberController do
 
   def show(conn, %{"id" => id}) do
     member = Users.get_member!(id)
-    given_rewards = Rewards.list_rewards_given_by(member)
+    given_rewards = Rewards.list_rewards_recently_given_by(member)
 
     render(conn, "show.html", member: member, given_rewards: given_rewards)
   end

@@ -1,6 +1,6 @@
 <h1><%= @member.name %></h1>
 
-<h2>Given rewards</h2>
+<h2>Rewards given in the current month</h2>
 
 <ul>
   <%= for reward <- @given_rewards do %>

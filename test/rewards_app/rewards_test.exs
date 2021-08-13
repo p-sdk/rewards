@@ -140,7 +140,7 @@ defmodule RewardsApp.RewardsTest do
       assert Rewards.list_rewards() == [reward]
     end
 
-    test "list_rewards_given_by/1 returns rewards given by the given member" do
+    test "list_rewards_recently_given_by/1 returns rewards given by the member in current month" do
       sender = user_fixture()
       other_sender = user_fixture()
       receiver_1 = user_fixture()
@@ -152,7 +152,7 @@ defmodule RewardsApp.RewardsTest do
       assert [
                %{id: ^reward_3_id, receiver: ^receiver_2, points: 5},
                %{id: ^reward_1_id, receiver: ^receiver_1, points: 3}
-             ] = Rewards.list_rewards_given_by(sender)
+             ] = Rewards.list_rewards_recently_given_by(sender)
     end
 
     test "get_rewards_summary/2" do
