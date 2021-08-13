@@ -3,6 +3,13 @@ defmodule RewardsAppWeb.Admin.PoolController do
 
   alias RewardsApp.{Rewards.Pool, Rewards, Users}
 
+  def index(conn, %{"member_id" => id}) do
+    member = Users.get_member!(id)
+    pools = Rewards.list_pools_for(member)
+
+    render(conn, "index.html", member: member, pools: pools)
+  end
+
   def new(conn, %{"member_id" => member_id}) do
     member = Users.get_member!(member_id)
     changeset = Rewards.change_pool(%Pool{})
@@ -17,7 +24,7 @@ defmodule RewardsAppWeb.Admin.PoolController do
       {:ok, _pool} ->
         conn
         |> put_flash(:info, "Pool created successfully.")
-        |> redirect(to: Routes.admin_member_path(conn, :show, member))
+        |> redirect(to: Routes.admin_member_pool_path(conn, :index, member))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", member: member, changeset: changeset)
@@ -43,7 +50,7 @@ defmodule RewardsAppWeb.Admin.PoolController do
       {:ok, _pool} ->
         conn
         |> put_flash(:info, "Pool updated successfully.")
-        |> redirect(to: Routes.admin_member_path(conn, :show, member))
+        |> redirect(to: Routes.admin_member_pool_path(conn, :index, member))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", member: member, pool: pool, changeset: changeset)

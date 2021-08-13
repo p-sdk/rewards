@@ -3,7 +3,7 @@
 <ul>
   <%= for member <- @members do %>
     <%= if RewardsApp.Users.is_admin?(@current_user) do %>
-      <li><%= link member.name, to: Routes.admin_member_path(@conn, :show, member) %></li>
+      <li><%= link member.name, to: Routes.admin_member_pool_path(@conn, :index, member) %></li>
     <% else %>
       <li><%= link member.name, to: Routes.member_path(@conn, :show, member) %></li>
     <% end %>

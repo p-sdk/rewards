@@ -2,4 +2,4 @@
 
 <%= render "form.html", Map.put(assigns, :action, Routes.admin_member_pool_path(@conn, :update, @member, @pool)) %>
 
-<span><%= link "Back", to: Routes.admin_member_path(@conn, :show, @member) %></span>
+<span><%= link "Back", to: Routes.admin_member_pool_path(@conn, :index, @member) %></span>

@@ -42,8 +42,8 @@ defmodule RewardsAppWeb.Router do
   scope "/admin", RewardsAppWeb.Admin, as: :admin do
     pipe_through [:browser, :admin]
 
-    resources "/members", MemberController, only: [:show] do
-      resources "/pools", PoolController, only: [:new, :create, :edit, :update] do
+    scope "/members/:member_id", as: :member do
+      resources "/pools", PoolController, only: [:index, :new, :create, :edit, :update] do
         resources "/rewards", RewardController, only: [:index, :new, :create, :delete]
       end
     end
