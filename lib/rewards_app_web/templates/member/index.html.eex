@@ -1,12 +1,29 @@
 <h1>Members</h1>
 
-<ul>
-  <%= for member <- @members do %>
-    <%= if RewardsApp.Users.is_admin?(@current_user) do %>
-      <li><%= link member.name, to: Routes.admin_member_pool_path(@conn, :index, member) %></li>
-    <% else %>
-      <li><%= link member.name, to: Routes.member_path(@conn, :show, member) %></li>
-    <% end %>
-  <% end %>
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
 
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for member <- @members do %>
+    <tr>
+      <td><%= member.name %></td>
+
+      <td>
+        <%= cond do %>
+          <% RewardsApp.Users.is_admin?(@current_user) -> %>
+            <span><%= link "Manage", to: Routes.admin_member_pool_path(@conn, :index, member) %></span>
+          <% @current_user == member -> %>
+            <span><%= link "List given rewards", to: Routes.member_path(@conn, :show, member) %></span>
+          <% true -> %>
+            <span><%= link "Give a reward", to: Routes.member_path(@conn, :show, member) %></span>
+        <% end %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
