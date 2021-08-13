@@ -10,18 +10,6 @@ defmodule RewardsApp.RewardsTest do
     @update_attrs %{remaining_points: 50}
     @invalid_attrs %{month: nil, remaining_points: nil, year: nil}
 
-    def pool_fixture(attrs \\ %{}) do
-      user = user_fixture()
-
-      {:ok, pool} =
-        attrs
-        |> Enum.into(%{owner_id: user.id})
-        |> Enum.into(@valid_attrs)
-        |> Rewards.create_pool()
-
-      pool
-    end
-
     test "list_periods/0" do
       member = user_fixture()
       other_member = user_fixture()
