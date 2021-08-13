@@ -7,7 +7,7 @@
 
   <%= unless @changeset.data.id do %>
     <%= label f, :month %>
-    <%= number_input f, :month %>
+    <%= select f, :month, month_options() %>
     <%= error_tag f, :month %>
 
     <%= label f, :year %>
