@@ -27,3 +27,9 @@ defmodule RewardsApp.Users.User do
     |> validate_inclusion(:role, ~w(member admin))
   end
 end
+
+defimpl Bamboo.Formatter, for: RewardsApp.Users.User do
+  def format_email_address(user, _opts) do
+    {user.name, user.email}
+  end
+end

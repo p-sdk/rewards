@@ -6,7 +6,7 @@ defmodule RewardsApp.Email do
 
     new_email()
     |> from({"RewardsApp", "rewards@example.com"})
-    |> to(reward.receiver.email)
+    |> to(reward.receiver)
     |> subject("You got a reward!")
     |> assign(:sender, reward.pool.owner)
     |> assign(:points, reward.points)
