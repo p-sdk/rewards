@@ -2,10 +2,21 @@
 
 <h2>Rewards given in the current month</h2>
 
-<ul>
-  <%= for reward <- @given_rewards do %>
-    <li><%= reward.receiver.name %>: <%= reward.points %></li>
-  <% end %>
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>Receiver</th>
+      <th>Points</th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for reward <- @given_rewards do %>
+    <tr>
+      <td><%= reward.receiver.name %></td>
+      <td><%= reward.points %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
 
 <span><%= link "Back", to: Routes.member_path(@conn, :index) %></span>
