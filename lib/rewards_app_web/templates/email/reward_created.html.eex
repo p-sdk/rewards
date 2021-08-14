@@ -1,0 +1,3 @@
+<p>
+  <%= @sender.name %> has granted you <%= @points %> points.
+</p>

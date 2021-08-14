@@ -1,7 +1,7 @@
 defmodule RewardsAppWeb.RewardController do
   use RewardsAppWeb, :controller
 
-  alias RewardsApp.{Rewards, Users}
+  alias RewardsApp.{Email, Mailer, Rewards, Users}
   alias RewardsApp.Rewards.Reward
 
   plug :assign_current_pool_remaining_points when action in [:new, :create]
@@ -17,7 +17,9 @@ defmodule RewardsAppWeb.RewardController do
     member = Users.get_member!(member_id)
 
     case Rewards.create_reward(conn.assigns.current_user, member, points) do
-      {:ok, _reward} ->
+      {:ok, reward} ->
+        send_reward_created_email(reward)
+
         conn
         |> put_flash(:info, "Reward created successfully.")
         |> redirect(to: Routes.member_path(conn, :show, conn.assigns.current_user))
@@ -33,5 +35,10 @@ defmodule RewardsAppWeb.RewardController do
         |> put_flash(:error, "The requested amount of points to reward is too high.")
         |> render("new.html", member: member, changeset: changeset)
     end
+  end
+
+  defp send_reward_created_email(reward) do
+    Email.reward_created_email(reward)
+    |> Mailer.deliver_later()
   end
 end
