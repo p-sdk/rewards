@@ -22,3 +22,5 @@ config :rewards_app, RewardsAppWeb.Endpoint,
 config :logger, level: :warn
 
 config :pow, Pow.Ecto.Schema.Password, iterations: 1
+
+config :rewards_app, RewardsApp.Mailer, adapter: Bamboo.TestAdapter
