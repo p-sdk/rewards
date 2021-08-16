@@ -1,16 +1,15 @@
 <h1>New Reward</h1>
 
-<ul>
-  <li>
-    <strong>Sender:</strong>
-    <%= @sender.name %>
-  </li>
-  <li>
-    <strong>Pool:</strong>
+<dl>
+  <dt>Sender</dt>
+  <dd><%= @sender.name %></dd>
+
+  <dt>Pool</dt>
+  <dd>
     <%= pool_period(@pool) %>
     (<%= @pool.remaining_points %> remaining points)
-  </li>
-</ul>
+  </dd>
+</dl>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.admin_member_pool_reward_path(@conn, :create, @sender, @pool)) %>
 
