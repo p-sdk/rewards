@@ -21,7 +21,11 @@ defmodule RewardsAppWeb.Admin.PoolView do
   end
 
   def pool_period(pool) do
-    Date.new!(pool.year, pool.month, 1)
+    format_period(%{month: pool.month, year: pool.year})
+  end
+
+  def format_period(%{month: month, year: year}) do
+    Date.new!(year, month, 1)
     |> Calendar.strftime("%B %Y")
   end
 end
