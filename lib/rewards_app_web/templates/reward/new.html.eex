@@ -8,12 +8,14 @@
       </div>
     <% end %>
 
-    <%= label f, :points %>
-    <%= number_input f, :points %>
-    <%= error_tag f, :points %>
+    <div class="mb-3">
+      <%= label f, :points, class: "form-label" %>
+      <%= number_input f, :points, class: "form-control" %>
+      <%= error_tag f, :points %>
+    </div>
 
-    <div>
-      <%= submit "Send" %>
+    <div class="mb-3">
+      <%= submit "Send", class: "btn btn-primary" %>
     </div>
   <% end %>
 <% end %>

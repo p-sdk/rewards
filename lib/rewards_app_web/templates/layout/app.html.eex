@@ -9,29 +9,47 @@
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <%= if @current_user do %>
-              <li><%= @current_user.name %></li>
-              <%= if RewardsApp.Users.is_admin?(@current_user) do %>
-                <li><%= link "Reports", to: Routes.admin_report_path(@conn, :index) %></li>
-              <% end %>
-              <li><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></li>
-            <% else %>
-              <li><%= link "Register", to: Routes.pow_registration_path(@conn, :new) %></li>
-              <li><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></li>
+    <main role="main" class="container">
+      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+          <span class="fs-4">Rewards App</span>
+        </a>
+
+        <%= if @current_user do %>
+          <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+            <li><%= link "Members", to: Routes.member_path(@conn, :index), class: "nav-link px-2 link-dark" %></li>
+            <%= if RewardsApp.Users.is_admin?(@current_user) do %>
+              <li><%= link "Reports", to: Routes.admin_report_path(@conn, :index), class: "nav-link px-2 link-dark" %></li>
             <% end %>
           </ul>
-        </nav>
-        <a href="/">Rewards App</a>
-      </section>
-    </header>
-    <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <%= @inner_content %>
+        <% end %>
+
+        <%= if @current_user do %>
+          <div class="dropdown text-end">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= @current_user.name %>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end text-small" aria-labelledby="dropdownUser1">
+              <li>
+                <%= link "Edit Profile", to: Routes.pow_registration_path(@conn, :edit), class: "dropdown-item" %>
+                <%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "dropdown-item" %>
+              </li>
+            </ul>
+          </div>
+        <% else %>
+          <div class="col-md-3 text-end">
+            <%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "btn btn-outline-primary me-2" %>
+            <%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </header>
+      <div class="container">
+        <div class="row">
+          <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+          <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+          <%= @inner_content %>
+        </div>
+      </div>
     </main>
   </body>
 </html>

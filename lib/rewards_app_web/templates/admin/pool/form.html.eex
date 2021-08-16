@@ -6,20 +6,26 @@
   <% end %>
 
   <%= unless @changeset.data.id do %>
-    <%= label f, :month %>
-    <%= select f, :month, month_options() %>
-    <%= error_tag f, :month %>
+    <div class="mb-3">
+      <%= label f, :month, class: "form-label" %>
+      <%= select f, :month, month_options(), class: "form-select" %>
+      <%= error_tag f, :month %>
+    </div>
 
-    <%= label f, :year %>
-    <%= number_input f, :year %>
-    <%= error_tag f, :year %>
+    <div class="mb-3">
+      <%= label f, :year, class: "form-label" %>
+      <%= number_input f, :year, class: "form-control" %>
+      <%= error_tag f, :year %>
+    </div>
   <% end %>
 
-  <%= label f, :remaining_points %>
-  <%= number_input f, :remaining_points %>
-  <%= error_tag f, :remaining_points %>
+  <div class="mb-3">
+    <%= label f, :remaining_points, class: "form-label" %>
+    <%= number_input f, :remaining_points, class: "form-control" %>
+    <%= error_tag f, :remaining_points %>
+  </div>
 
-  <div>
-    <%= submit "Save" %>
+  <div class="mb-3">
+    <%= submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>

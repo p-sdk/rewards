@@ -1,6 +1,6 @@
 <h2>Rewards given by <%= @member.name %> in <%= pool_period(@pool) %></h2>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Receiver</th>
@@ -23,6 +23,5 @@
   </tbody>
 </table>
 
-<span><%= link "Back", to: Routes.admin_member_pool_path(@conn, :index, @member) %></span>
-|
 <span><%= link "New Reward", to: Routes.admin_member_pool_reward_path(@conn, :new, @member, @pool) %></span>
+<span><%= link "Back", to: Routes.admin_member_pool_path(@conn, :index, @member) %></span>

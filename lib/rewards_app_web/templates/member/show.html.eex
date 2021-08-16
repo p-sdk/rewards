@@ -2,7 +2,7 @@
 
 <h2>Rewards given in the current month</h2>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Receiver</th>

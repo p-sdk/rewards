@@ -7,28 +7,38 @@
     </div>
   <% end %>
 
-  <%= label f, :name %>
-  <%= text_input f, :name %>
-  <%= error_tag f, :name %>
+  <div class="mb-3">
+    <%= label f, :name, class: "form-label" %>
+    <%= text_input f, :name, class: "form-control" %>
+    <%= error_tag f, :name %>
+  </div>
 
-  <%= label f, :current_password %>
-  <%= password_input f, :current_password %>
-  <%= error_tag f, :current_password %>
+  <div class="mb-3">
+    <%= label f, :current_password, class: "form-label" %>
+    <%= password_input f, :current_password, class: "form-control" %>
+    <%= error_tag f, :current_password %>
+  </div>
 
-  <%= label f, Pow.Ecto.Schema.user_id_field(@changeset) %>
-  <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset) %>
-  <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+  <div class="mb-3">
+    <%= label f, Pow.Ecto.Schema.user_id_field(@changeset), class: "form-label" %>
+    <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset), class: "form-control" %>
+    <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+  </div>
 
-  <%= label f, :password %>
-  <%= password_input f, :password %>
-  <%= error_tag f, :password %>
+  <div class="mb-3">
+    <%= label f, :password, class: "form-label" %>
+    <%= password_input f, :password, class: "form-control" %>
+    <%= error_tag f, :password %>
+  </div>
 
-  <%= label f, :password_confirmation %>
-  <%= password_input f, :password_confirmation %>
-  <%= error_tag f, :password_confirmation %>
+  <div class="mb-3">
+    <%= label f, :password_confirmation, class: "form-label" %>
+    <%= password_input f, :password_confirmation, class: "form-control" %>
+    <%= error_tag f, :password_confirmation %>
+  </div>
 
-  <div>
-    <%= submit "Update" %>
+  <div class="mb-3">
+    <%= submit "Update", class: "btn btn-primary" %>
   </div>
 <% end %>
 

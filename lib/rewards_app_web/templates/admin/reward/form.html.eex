@@ -5,15 +5,19 @@
     </div>
   <% end %>
 
-  <%= label f, :points %>
-  <%= number_input f, :points %>
-  <%= error_tag f, :points %>
+  <div class="mb-3">
+    <%= label f, :points, class: "form-label" %>
+    <%= number_input f, :points, class: "form-control" %>
+    <%= error_tag f, :points %>
+  </div>
 
-  <%= label f, :receiver_id %>
-  <%= select f, :receiver_id, Enum.map(@receivers, &{&1.name, &1.id}) %>
-  <%= error_tag f, :receiver_id %>
+  <div class="mb-3">
+    <%= label f, :receiver_id, class: "form-label" %>
+    <%= select f, :receiver_id, Enum.map(@receivers, &{&1.name, &1.id}), class: "form-select" %>
+    <%= error_tag f, :receiver_id %>
+  </div>
 
-  <div>
-    <%= submit "Save" %>
+  <div class="mb-3">
+    <%= submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>

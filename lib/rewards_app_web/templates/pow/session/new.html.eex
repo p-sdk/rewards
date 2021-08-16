@@ -7,16 +7,20 @@
     </div>
   <% end %>
 
-  <%= label f, Pow.Ecto.Schema.user_id_field(@changeset) %>
-  <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset) %>
-  <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+  <div class="mb-3">
+    <%= label f, Pow.Ecto.Schema.user_id_field(@changeset), class: "form-label" %>
+    <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset), class: "form-control" %>
+    <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+  </div>
 
-  <%= label f, :password %>
-  <%= password_input f, :password %>
-  <%= error_tag f, :password %>
+  <div class="mb-3">
+    <%= label f, :password, class: "form-label" %>
+    <%= password_input f, :password, class: "form-control" %>
+    <%= error_tag f, :password %>
+  </div>
 
-  <div>
-    <%= submit "Sign in" %>
+  <div class="mb-3">
+    <%= submit "Sign in", class: "btn btn-primary" %>
   </div>
 <% end %>
 

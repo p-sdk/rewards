@@ -1,9 +1,7 @@
 <h2>Reports</h2>
 
-<ul>
-<%= for period <- @periods do %>
-  <li>
-    <span><%= link format_period(period), to: Routes.admin_report_path(@conn, :show, period.year, period.month) %></span>
-  </li>
-<% end %>
-</ul>
+<div class="list-group">
+  <%= for period <- @periods do %>
+    <%= link format_period(period), to: Routes.admin_report_path(@conn, :show, period.year, period.month), class: "list-group-item list-group-item-action" %>
+  <% end %>
+</div>
