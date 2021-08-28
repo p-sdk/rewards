@@ -213,7 +213,9 @@ defmodule RewardsApp.RewardsTest do
       receiver = user_fixture()
       points = 12
       now = DateTime.utc_now()
-      _pool = pool_fixture(remaining_points: 20, owner_id: sender.id, month: now.month, year: now.year)
+
+      _pool =
+        pool_fixture(remaining_points: 20, owner_id: sender.id, month: now.month, year: now.year)
 
       assert {:ok, %Reward{} = reward} = Rewards.create_reward(sender, receiver, points)
       %{pool: updated_pool} = Repo.preload(reward, :pool)

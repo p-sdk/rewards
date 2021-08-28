@@ -46,7 +46,9 @@ defmodule RewardsApp.UsersTest do
       assert {:ok, user} = Repo.insert(User.changeset(%User{}, @valid_params))
       refute Users.is_admin?(user)
 
-      assert {:ok, admin} = Users.create_admin(%{@valid_params | name: "Admin", email: "test2@example.com"})
+      assert {:ok, admin} =
+               Users.create_admin(%{@valid_params | name: "Admin", email: "test2@example.com"})
+
       assert Users.is_admin?(admin)
     end
   end

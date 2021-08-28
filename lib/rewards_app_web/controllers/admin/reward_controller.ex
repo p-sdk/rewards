@@ -40,7 +40,9 @@ defmodule RewardsAppWeb.Admin.RewardController do
       {:ok, _reward} ->
         conn
         |> put_flash(:info, "Reward created successfully.")
-        |> redirect(to: Routes.admin_member_pool_reward_path(conn, :index, conn.assigns.sender.id, pool_id))
+        |> redirect(
+          to: Routes.admin_member_pool_reward_path(conn, :index, conn.assigns.sender.id, pool_id)
+        )
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", pool: pool, changeset: changeset)
